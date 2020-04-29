@@ -1,5 +1,5 @@
 ''' Class responsible of the main brick of poker : a card. 
-A card as a value e.g : ten, and  a color e.g : spade'''
+A card as a value e.g : Ten, and a color e.g : Spades'''
 
 
 class Card:
