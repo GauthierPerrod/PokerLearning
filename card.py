@@ -10,7 +10,7 @@ class Card:
     def __str__(self):
         return(str(self.value) + " of " + str(self.color))
 
-    def __repr(self):
+    def __repr__(self):
         return( "Card:"+ str(self.value) + " of " + str(self.color))
     # Overriding '=='
     def __eq__(self, other): 
