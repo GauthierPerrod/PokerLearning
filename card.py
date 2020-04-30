@@ -11,7 +11,7 @@ class Card:
         return(str(self.value) + " of " + str(self.color))
 
     def __repr__(self):
-        return( "Card:"+ str(self.value) + " of " + str(self.color))
+        return( str(self.value) + " of " + str(self.color))
     # Overriding '=='
     def __eq__(self, other): 
         return (self.__dict__ == other.__dict__)
