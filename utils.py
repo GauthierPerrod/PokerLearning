@@ -5,7 +5,7 @@ str_to_value = {'Ace':13, 'Two': 1, 'Three': 2, 'Four': 3, 'Five': 4, 'Six': 5, 
 value_to_str = {v: k for k, v in str_to_value.items()}
 
 def get_value(card):
-    return(card.value)
+    return(str_to_value[card.value])
 
 def get_color(card):
     return(card.color)
@@ -14,7 +14,7 @@ def find_best(hand):
     l=[]
     values=list(map(get_value,hand))
     for val in values:
-        l.append(str_to_value[val])
+        l.append(val)
     return(sorted(l, reverse=True))
 
 def find_pairs(hand):
@@ -48,7 +48,7 @@ def find_color(hand):
         if colors.count(col)==5:
             for card in hand :
                 if card.color==col :
-                new_hand.append(card)
+                    new_hand.append(card)
             return(find_best(new_hand))
 
 def find_straight(hand):
@@ -57,10 +57,10 @@ def find_straight(hand):
     values=list(set(sorted(values)))
     if 13 in values :
         values=[0]+values
-    for i in range(len(values)-5):
+    for i in range(len(values) - 4):
         if values[i]+4==values[i+4]:
-            l.append(i+4)
-    return(max(l))        
+            l.append(values[i+4])
+    return(max(l))       
 
 
 
