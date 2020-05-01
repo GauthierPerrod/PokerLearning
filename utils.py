@@ -33,11 +33,23 @@ def find_triplet(hand):
             l.append(val)
     return(l)
 
+def find_four(hand):
+    l=[]
+    values=list(map(get_value,hand))
+    for val in values :
+        if values.count(val)==4:
+            l.append(val)
+    return(l)
+
 def find_color(hand):
     colors=list(map(get_color,hand))
+    new_hand = []
     for col in colors :
         if colors.count(col)==5:
-            return(find_best(hand))
+            for card in hand :
+                if card.color==col :
+                new_hand.append(card)
+            return(find_best(new_hand))
 
 def find_straight(hand):
     l=[]
