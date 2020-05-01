@@ -3,7 +3,7 @@ A player has an absolute position around the table, a starting hand composed of 
 and a number of states possible, e.g: dealt, flop, turn, river, call, bet, raise, fold, allin'''
 
 class Player:
-    def __init__(self, absolute_position, time_bank, state, timer, first_card, second_card, chips_value):
+    def __init__(self, absolute_position, time_bank, state, timer, first_card, second_card, chips_value, hand=None):
         self.absolute_position = absolute_position
         self.time_bank = time_bank
         self.state = state
@@ -11,6 +11,7 @@ class Player:
         self.first_card = first_card
         self.second_card = second_card
         self.chips_value = chips_value
+        self.hand = hand
     #Method to print the dealt hand of the player
     def __str__(self):
         return('position : ' + str(self.absolute_position) + " & " + "time bank : " + str(self.time_bank) + "\n"
