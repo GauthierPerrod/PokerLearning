@@ -12,6 +12,8 @@ class Player:
         self.second_card = second_card
         self.chips_value = chips_value
         self.hand = hand
+        self.hand_name = None
+        self.player_pot = None
     #Method to print the dealt hand of the player
     def __str__(self):
         return('position : ' + str(self.absolute_position) + " & " + "time bank : " + str(self.time_bank) + "\n"

@@ -15,7 +15,7 @@ def find_best(hand):
     values=list(map(get_value,hand))
     for val in values:
         l.append(val)
-    return(sorted(l, reverse=True))
+    return(sorted(l, reverse=True)) #return list in descending order for higher card
 
 def find_pairs(hand):
     l=[]
@@ -23,7 +23,7 @@ def find_pairs(hand):
     for val in values :
         if values.count(val)==2:
             l.append(val)
-    return(l)
+    return(sorted(l, reverse=True)) #return list sorted in descending order for all pairs found
 
 def find_triplet(hand):
     l=[]
@@ -31,7 +31,7 @@ def find_triplet(hand):
     for val in values :
         if values.count(val)==3:
             l.append(val)
-    return(l)
+    return(sorted(l, reverse=True)) #return list sorted in descending order for all triplets found
 
 def find_four(hand):
     l=[]
@@ -57,10 +57,11 @@ def find_straight(hand):
     values=list(set(sorted(values)))
     if 13 in values :
         values=[0]+values
-    for i in range(len(values) - 4):
-        if values[i]+4==values[i+4]:
-            l.append(values[i+4])
-    return(max(l))       
+    if (len(values) - 4) >= 0: #condition on at least 4 unique values in hand to avoid list index out of range (e.g: four of a kind + pair = 3 unique values in hand)
+        for i in range(len(values) - 4):
+            if values[i]+4==values[i+4]:
+                l.append(values[i+4])
+        return(list(max(l))) #return list of highest card in the straight
 
 
 
