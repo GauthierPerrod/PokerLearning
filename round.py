@@ -96,6 +96,7 @@ def best_player_hand(players): #function determines winner around the table
                     player.hand_name = 'Full House'
                 
             if len(utils.find_four(player.hand)) != 0: #conditions on not empty
+                high_card = utils.find_best(player.hand) #descending high card
                 player_new_hand = utils.find_four(player.hand) #probable syntax error
                 for high in high_card:
                     if (not(high in player_new_hand) and len(player_new_hand)<5): #build up to 5 with highest card afeter four of a kind
@@ -117,7 +118,11 @@ def best_player_hand(players): #function determines winner around the table
 
 def find_winner_after_river(players): #find the winner among players not folded after the river
     among_players = list(players)
-    best_hand = [among_players.pop()] #set player as reference for comparison with others in hand ranking
+    for player in among_players:
+        if player.state != 'fold':
+            best_hand = [player] #set player as reference for comparison with others in hand ranking
+            among_players.remove(player) #remove said player from comparison list
+            break
 
     for player in among_players: #build player list with best hand_name
         if player.state != 'fold':
