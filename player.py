@@ -3,7 +3,8 @@ A player has an absolute position around the table, a starting hand composed of 
 and a number of states possible, e.g: dealt, flop, turn, river, call, bet, raise, fold, allin'''
 
 class Player:
-    def __init__(self, absolute_position, time_bank, state, timer, first_card, second_card, chips_value, hand=None):
+    def __init__(self, character, absolute_position, time_bank, state, timer, first_card, second_card, chips_value, hand=None):
+        self.character = character #either 'human' or 'computer'
         self.absolute_position = absolute_position
         self.time_bank = time_bank
         self.state = state
@@ -30,11 +31,11 @@ class Player:
         return(self.__dict__ == other.__dict__)
 
 if __name__ == "__main__":
-    player0 = Player("0", 120, "dealt", 30, "Seven of Spades", "Two of Hearts", 1000)
+    player0 = Player('human', "0", 120, "dealt", 30, "Seven of Spades", "Two of Hearts", 1000)
     print(player0)
-    player1 = Player("1", 120, "dealt", 30, "Jack of Spades", "Ten of Clubs", 1000)
-    player2 = Player("0", 120, "dealt", 30, "Seven of Spades", "Two of Hearts", 1000)
-    player3 = Player("1", 120, "fold", 30, "Seven of Spades", "Two of Hearts", 1500)
+    player1 = Player('human', "1", 120, "dealt", 30, "Jack of Spades", "Ten of Clubs", 1000)
+    player2 = Player('human', "0", 120, "dealt", 30, "Seven of Spades", "Two of Hearts", 1000)
+    player3 = Player('human', "1", 120, "fold", 30, "Seven of Spades", "Two of Hearts", 1500)
     print(player0 == player1)
     print(player0 == player2)
     print(player0 == player3)
