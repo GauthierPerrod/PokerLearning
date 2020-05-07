@@ -15,6 +15,8 @@ class Player:
         self.hand = hand
         self.hand_name = None
         self.player_pot = None
+        self.is_folded = None
+        
     #Method to print the dealt hand of the player
     def __str__(self):
         return('position : ' + str(self.absolute_position) + " & " + "time bank : " + str(self.time_bank) + "\n"
@@ -29,6 +31,23 @@ class Player:
     #Override
     def __eq__(self, other):
         return(self.__dict__ == other.__dict__)
+    
+    def play_turn(self, game_state):
+        if not self.is_folded :
+            if self.character == 'human' :
+
+                action =""
+                while action not in ['fold', 'check', 'call', 'bet'] :
+                    print('Please enter <Fold, Check, Call or  Bet>')
+                    action = input().lower()
+                if action=='Bet' :
+                    bet_chips = 0.0
+                    while not  game_state['big_blind'] + game_state['current_bet'] <= float(bet_chips):
+                        print('Enter a value bigger than the current bet plus one big blind')
+                        bet_chips = float(input())
+                    if bet_chips > self.player_pot :
+                        bet_chips = self.player_pot
+
 
 if __name__ == "__main__":
     player0 = Player('human', "0", 120, "dealt", 30, "Seven of Spades", "Two of Hearts", 1000)

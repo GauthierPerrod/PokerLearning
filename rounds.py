@@ -1,6 +1,5 @@
 ''' class responsible for round managing'''
 
-import ruler
 import utils
 from player import Player
 
@@ -28,17 +27,19 @@ def deal_cards_table(round_turn, players, ruler, flop_cards, turn_cards, river_c
             if player.state != 'fold':
                 player.state = 'flop'  #for all player not folded, update state to flop (reached the flop)
     if round_turn == 2: #condition on beginning of turn after conditions on dealing the turn met
+        ruler.pop() #burn a card
         turn_cards.append(ruler.pop())
         for player in players:
             if player.state != 'fold':
                 player.state = 'turn'
     if round_turn == 3: #condition on beginning of turn after conditions on dealing the river met
+        ruler.pop()#burn a card
         river_cards.append(ruler.pop())
         for player in players:
             if player.state != 'fold':
                 player.state = 'river'
 
-def best_player_hand(players): #function determines winner around the table
+def best_player_hand(players, debug=True): #function determines winner around the table
     for player in players:
         if player.state != 'fold':
             player.hand = [player.first_card, player.second_card]
@@ -48,7 +49,8 @@ def best_player_hand(players): #function determines winner around the table
                 player.hand.append(card)
             for card in poker_round.river_cards:
                 player.hand.append(card)
-            print(player.hand)
+            if debug :
+                print(player.hand)
             # build highest hand possible
             player_new_hand = utils.find_best(player.hand)
             player.hand_name = 'High Card'
@@ -63,7 +65,7 @@ def best_player_hand(players): #function determines winner around the table
                 else:
                     player.hand_name = 'One Pair'
                 for high in high_card:
-                    if (not(high in player_new_hand) and len(player_new_hand)<5): #build up to 5 with highest card afeter pairs
+                    if (not(high in player_new_hand) and len(player_new_hand)<5): #build up to 5 with highest card after pairs
                         player_new_hand.append(high)
                         
 
@@ -92,7 +94,7 @@ def best_player_hand(players): #function determines winner around the table
                     player.hand_name = 'Full House'
                 elif len(utils.find_triplet(player.hand)) == 6:
                     player_new_hand = utils.find_triplet(player.hand)
-                    player_new_hand.pop()
+                    player_new_hand.pop() ### ISSUE, on vire bien le plus faible ?
                     player.hand_name = 'Full House'
                 
             if len(utils.find_four(player.hand)) != 0: #conditions on not empty
@@ -188,6 +190,7 @@ def settle_remaining_pot(winner,players): #settle remaining pot by finding next 
 
 if __name__ == '__main__':
     #create ruler
+    import ruler
     ruler = ruler.Ruler()
     print(ruler.deck)
 
