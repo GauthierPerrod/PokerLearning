@@ -33,6 +33,7 @@ class Player:
         return(self.__dict__ == other.__dict__)
     
     def play_turn(self, game_state):
+        player_action = {}
         if not self.is_folded :
             if self.character == 'human' :
 
@@ -40,13 +41,18 @@ class Player:
                 while action not in ['fold', 'check', 'call', 'bet'] :
                     print('Please enter <Fold, Check, Call or  Bet>')
                     action = input().lower()
-                if action=='Bet' :
+                player_action['action']=action
+
+                if action=='bet' :
                     bet_chips = 0.0
                     while not  game_state['big_blind'] + game_state['current_bet'] <= float(bet_chips):
                         print('Enter a value bigger than the current bet plus one big blind')
                         bet_chips = float(input())
                     if bet_chips > self.player_pot :
                         bet_chips = self.player_pot
+                    player_action['bet'] = bet_chips
+        return(player_action)
+
 
 
 if __name__ == "__main__":
